@@ -48,6 +48,7 @@ package:
   - LICENSE
   - CODEOWNERS
   - README.md
+  - dev-requirements.txt
   - requirements.txt
   - package.json
   - package-lock.json
