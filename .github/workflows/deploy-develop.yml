@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - develop
+name: Deploy develop branch
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install dependencies
+      run: npm install
+    - name: serverless deploy
+      uses: DiljotSG/serverless-github-action-python@master
+      with:
+        args: deploy --stage dev
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
