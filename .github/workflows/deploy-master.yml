@@ -18,7 +18,7 @@ jobs:
     - name: serverless deploy
       uses: DiljotSG/serverless-github-action-python@master
       with:
-        args: deploy --stage dev
+        args: deploy --stage prod
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
