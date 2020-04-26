@@ -31,6 +31,7 @@ These steps are required for development.
 3. Install Python dependencies.
 
     ```shell
+    pip3 install -r dev-requirements.txt
     pip3 install -r requirements.txt
     ```
 
