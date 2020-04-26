@@ -1,0 +1,55 @@
+service: MCU-Countdown
+
+plugins:
+  - serverless-python-requirements
+  - serverless-wsgi
+
+custom:
+  wsgi:
+    app: handler.app
+    packRequirements: false
+  pythonRequirements:
+    dockerizePip: non-linux
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: dev
+  region: us-east-1
+  environment:
+    IS_LAMBDA: true
+    TMDB_API_KEY: "${env:TMDB_API_KEY}"
+
+functions:
+  api:
+    handler: wsgi_handler.handler
+    events:
+      - http: 
+          method: ANY 
+          path: /
+          cors: true
+      - http: 
+          method: ANY
+          path: '{proxy+}'
+          cors: true
+
+package:
+  exclude:
+  - "__pycache__/**"
+  - ".vscode/**"
+  - ".github/**"
+  - ".git/**"
+  - "venv/**"
+  - "node_modules/**"
+  - "tests/**"
+  - "docs/**"
+  - ".gitignore"
+  - ".env"
+  - LICENSE
+  - CODEOWNERS
+  - README.md
+  - requirements.txt
+  - package.json
+  - package-lock.json
+  - tox.ini
+  

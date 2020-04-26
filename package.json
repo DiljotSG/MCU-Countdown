@@ -1,0 +1,25 @@
+{
+  "name": "mcu-countdown",
+  "version": "1.0.0",
+  "description": "This repository contains the backend for the MCU Countdown app.",
+  "main": "handler.py",
+  "dependencies": {
+    "serverless-python-requirements": "^5.0.1",
+    "serverless-wsgi": "^1.7.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DiljotSG/MCU-Countdown.git"
+  },
+  "keywords": [],
+  "author": "Diljot Garcha",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/DiljotSG/MCU-Countdown/issues"
+  },
+  "homepage": "https://github.com/DiljotSG/MCU-Countdown/README.md"
+}
