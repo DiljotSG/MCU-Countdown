@@ -1,10 +1,11 @@
 from flask import Flask
 from flask import request
 from flask import jsonify
+from datetime import date
 from flask_cors import CORS
 from flask_cors import cross_origin
 
-from src.oracle import Oracle
+from src.services.oracle import Oracle
 
 
 def create_app():
@@ -14,16 +15,27 @@ def create_app():
     CORS(app)
 
     # Establish the root endpoint
+    # Return HTML data at root
     @app.route("/", methods=["GET"])
     @cross_origin()
     def root():
+        return oracle.get_next_movie_html()
+
+    # Return JSON data at /api
+    @app.route("/api", methods=["GET"])
+    @cross_origin()
+    def api():
         try:
-            output = request.args.get("json", type=str)
-            if output:
-                return jsonify(oracle.get_next_movie_json())
+            given_date = request.args.get("date", type=str)
+
+            # If they give us a date, try to parse it in ISO format
+            if given_date:
+                desired_date = str(date.fromisoformat(given_date))
+                return jsonify(oracle.get_next_movie_json(desired_date))
             else:
-                return oracle.get_next_movie_html()
+                return jsonify(oracle.get_next_movie_json())
+
         except ValueError:
-            return oracle.get_next_movie_html()
+            return jsonify(oracle.get_next_movie_json())
 
     return app
