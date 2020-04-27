@@ -36,9 +36,14 @@ class Oracle:
         next_movie: dict = self.get_next_movie_json()
         return "{} Days Until {}".format(next_movie.get("days_until", ""), next_movie.get("title", ""))
 
-    def get_next_movie_json(self) -> dict:
+    def get_next_movie_json(
+        self,
+        desired_date: Optional[str] = None
+    ) -> dict:
         result: dict = {}
-        next_movie: Optional[dict] = self.get_next_movie()
+        next_movie: Optional[dict] = self.get_next_movie(
+            desired_date=desired_date
+        )
 
         if next_movie:
             # Days until the movies' release
