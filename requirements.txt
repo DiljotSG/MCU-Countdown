@@ -1,2 +1,4 @@
 Flask==1.1.2
-tmdbsimple==2.2.0
+Flask-Cors==3.0.8
+requests==2.23.0
+jsonschema==3.2.0
