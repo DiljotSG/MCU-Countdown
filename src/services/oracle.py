@@ -21,7 +21,6 @@ class Oracle:
             movie_list = self.tmdb.get_list(TMDB_MCU_LIST)
 
         if movie_list:
-
             # Use the current date if we are not passed one
             if not desired_date:
                 # Get the current date in ISO format
@@ -30,7 +29,7 @@ class Oracle:
             try:
                 # Find the first film with a release date larger than the current date
                 index: int = next(i for i, v in enumerate(movie_list) if v.get("release_date", self.max_date) > desired_date)
-                if index:
+                if index is not None:
                     return movie_list[index]
             except StopIteration:
                 pass
