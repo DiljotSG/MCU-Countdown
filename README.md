@@ -19,3 +19,4 @@ Develop
 
 * [Setup](docs/SETUP.md)
 * [Testing](docs/TESTING.md)
+* [API](docs/API.md)

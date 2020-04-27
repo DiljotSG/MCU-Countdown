@@ -1,7 +1,7 @@
 TMDB_BASE_URL = "api.themoviedb.org/3"
 TMDB_BASE_IMG_URL = "image.tmdb.org/t/p/w500"
 TMDB_MCU_LIST = 140624
-TMDB_LNG_DEFAULT = "en-US"
+TMDB_LNG_DEFAULT = "en-CA"
 TMDB_LIST_SCHEMA = {
    "type": "object",
    "properties": {
