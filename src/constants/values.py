@@ -33,21 +33,13 @@ TMDB_LIST_SCHEMA = {
               "type": "boolean"
             },
             "backdrop_path": {
-              "type": "string"
+              "type": "string, null"
             },
             "genre_ids": {
               "type": "array",
-              "items": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "integer"
-                },
-                {
+              "items": {
                   "type": "integer"
                 }
-              ]
             },
             "id": {
               "type": "integer"
@@ -68,7 +60,7 @@ TMDB_LIST_SCHEMA = {
               "type": "number"
             },
             "poster_path": {
-              "type": "string"
+              "type": "string, null"
             },
             "release_date": {
               "type": "string"
@@ -85,9 +77,7 @@ TMDB_LIST_SCHEMA = {
             "vote_count": {
               "type": "integer"
             }
-          },
-          "required": [
-          ]
+          }
         }
       ]
     },
@@ -95,9 +85,7 @@ TMDB_LIST_SCHEMA = {
       "type": "string"
     },
     "poster_path": {
-      "type": "null"
+      "type": "string, null"
     }
-  },
-  "required": [
-  ]
+  }
 }
