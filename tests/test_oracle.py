@@ -1,5 +1,5 @@
 import unittest
-from src.oracle import Oracle
+from src.services.oracle import Oracle
 
 
 class TestOracle(unittest.TestCase):

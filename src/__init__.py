@@ -5,7 +5,7 @@ from datetime import date
 from flask_cors import CORS
 from flask_cors import cross_origin
 
-from src.oracle import Oracle
+from src.services.oracle import Oracle
 
 
 def create_app():
