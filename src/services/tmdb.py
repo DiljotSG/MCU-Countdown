@@ -32,8 +32,7 @@ class TMDBService:
 
     def get_list(self, list_num: int) -> Optional[dict]:
         result = self.__send_request("list/{}".format(list_num))
-        if result:
-            is_valid_schema(result.json(), TMDB_LIST_SCHEMA)
+        if result and is_valid_schema(result.json(), TMDB_LIST_SCHEMA):
             return result.json()["items"]
         return None
 
