@@ -1,10 +1,6 @@
-from flask import Flask
-app = Flask(__name__)
+import src
 
-
-@app.route("/")
-def hello():
-    return "Hello World!"
+app = src.create_app()
 
 
 def main():
