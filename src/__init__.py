@@ -24,9 +24,9 @@ def create_app():
         data = oracle.get_next_mcu_movie()
         return render_template(
             'page.html',
-            title=data["title"],
-            days=data["days_until"],
-            poster_url=data["poster_url"]
+            title=data.get("title", ""),
+            days=data.get("days_until", 0),
+            poster_url=data.get("poster_url", "")
         )
 
     # Return JSON data at /api
