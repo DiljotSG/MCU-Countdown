@@ -11,15 +11,16 @@ class Oracle:
         self.tmdb: TMDBService = TMDBService()
 
     def __get_next_movie(self) -> Optional[dict]:
-        mcu_list: list = self.tmdb.get_list(TMDB_MCU_LIST)
+        mcu_list = self.tmdb.get_list(TMDB_MCU_LIST)
 
-        # Get the current date in ISO format
-        curr_date: date = date.today().isoformat()
+        if mcu_list:
+            # Get the current date in ISO format
+            curr_date = date.today().isoformat()
 
-        # Find the first film with a release date larger than the current date
-        index: int = next(i for i, v in enumerate(mcu_list) if v["release_date"] > curr_date)
-        if index:
-            return mcu_list[index]
+            # Find the first film with a release date larger than the current date
+            index: int = next(i for i, v in enumerate(mcu_list) if v["release_date"] > curr_date)
+            if index:
+                return mcu_list[index]
         return None
 
     def get_next_movie_html(self) -> str:

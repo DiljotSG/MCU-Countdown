@@ -16,7 +16,7 @@ class TMDBService:
     ):
         self.api_key: Optional[str] = os.getenv('TMDB_API_KEY', api_key)
 
-    def __send_request(self, rel_path: str) -> requests.Response:
+    def __send_request(self, rel_path: str) -> Optional[requests.Response]:
         if self.api_key:
             return requests.get(
                 "https://{}/{}".format(TMDB_BASE_URL, rel_path),
@@ -28,11 +28,14 @@ class TMDBService:
                     "Content-Type": "application/json"
                 }
             )
+        return None
 
-    def get_list(self, list_num: int) -> dict:
-        result = self.__send_request("list/{}".format(list_num)).json()
-        is_valid_schema(result, TMDB_LIST_SCHEMA)
-        return result["items"]
+    def get_list(self, list_num: int) -> Optional[dict]:
+        result = self.__send_request("list/{}".format(list_num))
+        if result:
+            is_valid_schema(result.json(), TMDB_LIST_SCHEMA)
+            return result.json()["items"]
+        return None
 
     def get_poster_url(self, path: str) -> str:
         return "https://{}/{}".format(TMDB_BASE_IMG_URL, path)
