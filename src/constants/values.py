@@ -33,7 +33,7 @@ TMDB_LIST_SCHEMA = {
               "type": "boolean"
             },
             "backdrop_path": {
-              "type": "string, null"
+              "type": ["string", "null"]
             },
             "genre_ids": {
               "type": "array",
@@ -60,7 +60,7 @@ TMDB_LIST_SCHEMA = {
               "type": "number"
             },
             "poster_path": {
-              "type": "string, null"
+              "type": ["string", "null"]
             },
             "release_date": {
               "type": "string"
@@ -85,7 +85,7 @@ TMDB_LIST_SCHEMA = {
       "type": "string"
     },
     "poster_path": {
-      "type": "string, null"
+      "type": ["string", "null"]
     }
   }
 }

@@ -10,17 +10,25 @@ class Oracle:
     def __init__(self):
         self.tmdb: TMDBService = TMDBService()
 
-    def __get_next_movie(self) -> Optional[dict]:
-        mcu_list = self.tmdb.get_list(TMDB_MCU_LIST)
+    def get_next_movie(
+        self,
+        movie_list: Optional[dict] = None,
+        desired_date: Optional[str] = None
+    ) -> Optional[dict]:
+        if not movie_list:
+            movie_list = self.tmdb.get_list(TMDB_MCU_LIST)
 
-        if mcu_list:
-            # Get the current date in ISO format
-            curr_date = date.today().isoformat()
+        if movie_list:
+
+            # Use the current date if we are not passed one
+            if not desired_date:
+                # Get the current date in ISO format
+                desired_date = date.today().isoformat()
 
             # Find the first film with a release date larger than the current date
-            index: int = next(i for i, v in enumerate(mcu_list) if v["release_date"] > curr_date)
+            index: int = next(i for i, v in enumerate(movie_list) if v["release_date"] > desired_date)
             if index:
-                return mcu_list[index]
+                return movie_list[index]
 
         return None
 
@@ -30,7 +38,7 @@ class Oracle:
 
     def get_next_movie_json(self) -> dict:
         result: dict = {}
-        next_movie: Optional[dict] = self.__get_next_movie()
+        next_movie: Optional[dict] = self.get_next_movie()
 
         if next_movie:
             # Days until the movies' release
