@@ -1,6 +1,5 @@
 from datetime import date
 from datetime import MAXYEAR
-from datetime import timedelta
 from src.services.tmdb import TMDBService
 from src.constants.values import TMDB_MCU_LIST
 
@@ -46,8 +45,13 @@ class Oracle:
         )
 
         if next_movie:
+            # Use the current date if we are not passed one
+            if not desired_date:
+                # Get the current date in ISO format
+                desired_date = date.today().isoformat()
+
             # Days until the movies' release
-            days_until: timedelta = date.fromisoformat(next_movie.get("release_date", self.max_date)) - date.today()
+            days_until = date.fromisoformat(next_movie.get("release_date", self.max_date)) - date.fromisoformat(desired_date)
 
             # Format the result dictionary
             result["title"] = next_movie["original_title"]

@@ -10,7 +10,7 @@ class TestTMDBService(unittest.TestCase):
         )
 
     def test_send_request(self):
-        expected_data = "https://api.themoviedb.org/3/lists?api_key=CXdrQrBgAL3HET3mMmMt&language=en-US"
+        expected_data = "https://api.themoviedb.org/3/lists?api_key=CXdrQrBgAL3HET3mMmMt&language=en-CA"
         data = self.tmdb.send_request("lists").url
         self.assertEqual(data, expected_data)
 
