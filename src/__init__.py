@@ -27,11 +27,14 @@ def create_app():
     def api():
         try:
             given_date = request.args.get("date", type=str)
+
+            # If they give us a date, try to parse it in ISO format
             if given_date:
                 desired_date = str(date.fromisoformat(given_date))
                 return jsonify(oracle.get_next_movie_json(desired_date))
             else:
                 return jsonify(oracle.get_next_movie_json())
+
         except ValueError:
             return jsonify(oracle.get_next_movie_json())
 
