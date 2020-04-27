@@ -36,11 +36,7 @@ class Oracle:
 
         return None
 
-    def get_next_movie_html(self) -> str:
-        next_movie: dict = self.get_next_movie_json()
-        return "{} Days Until {}".format(next_movie.get("days_until", ""), next_movie.get("title", ""))
-
-    def get_next_movie_json(
+    def get_next_mcu_movie(
         self,
         desired_date: Optional[str] = None
     ) -> dict:
@@ -56,7 +52,7 @@ class Oracle:
             # Format the result dictionary
             result["title"] = next_movie["original_title"]
             result["release_date"] = next_movie.get("release_date", self.max_date)
-            result["poster_path"] = self.tmdb.give_poster_url(next_movie["poster_path"])
+            result["poster_url"] = self.tmdb.give_poster_url(next_movie["poster_path"])
             result["overview"] = next_movie["overview"]
             result["days_until"] = int(days_until.days)
 

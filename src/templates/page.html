@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+  <html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#A62319">
+
+    <title>{{ title }} in {{ days }} days! | When is the next MCU film?</title>
+    <meta name="description" content="When is the next MCU film?">
+
+    <link rel="shortcut icon" href="static/img/favicon.png">
+    <link href="https://fonts.googleapis.com/css?family=Reem+Kufi|Roboto:300" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="static/css/reset.css">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="static/css/red-white.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146424187-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-146424187-2');
+    </script>
+  </head>
+
+  <body>
+    <main>
+      <div class="intro">
+        <p>{{ title }} releases in {{ days }} days!</p>
+        <img 
+          alt="The movie poster for {{ title }}."
+          src="{{ poster_url }}"
+        >
+      </div>
+
+      <div class="icons-social">
+        <a target="_blank" href="https://github.com/DiljotSG/MCU-Countdown">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+    </main>
+    
+    <div class="footer">
+      This product uses the TMDb API but is not endorsed or certified by TMDb.
+      <a target="_blank" href="https://www.themoviedb.org/">
+        <img 
+          width="5%"
+          src="static/img/tmdb.svg"
+        >
+      </a>
+    </div>
+  </body>
+
+</html>
