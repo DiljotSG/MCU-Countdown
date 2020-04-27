@@ -21,6 +21,7 @@ class Oracle:
             index: int = next(i for i, v in enumerate(mcu_list) if v["release_date"] > curr_date)
             if index:
                 return mcu_list[index]
+
         return None
 
     def get_next_movie_html(self) -> str:
@@ -38,7 +39,7 @@ class Oracle:
             # Format the result dictionary
             result["title"] = next_movie["original_title"]
             result["release_date"] = next_movie["release_date"]
-            result["poster_path"] = self.tmdb.get_poster_url(next_movie["poster_path"])
+            result["poster_path"] = self.tmdb.give_poster_url(next_movie["poster_path"])
             result["overview"] = next_movie["overview"]
             result["days_until"] = int(days_until.days)
 
