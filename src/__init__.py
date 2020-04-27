@@ -1,6 +1,8 @@
 from flask import Flask
 from flask import request
 from flask import jsonify
+from flask import render_template
+
 from datetime import date
 from flask_cors import CORS
 from flask_cors import cross_origin
@@ -19,7 +21,13 @@ def create_app():
     @app.route("/", methods=["GET"])
     @cross_origin()
     def root():
-        return oracle.get_next_movie_html()
+        data = oracle.get_next_mcu_movie()
+        return render_template(
+            'page.html',
+            title=data.get("title", ""),
+            days=data.get("days_until", 0),
+            poster_url=data.get("poster_url", "")
+        )
 
     # Return JSON data at /api
     @app.route("/api", methods=["GET"])
@@ -31,11 +39,11 @@ def create_app():
             # If they give us a date, try to parse it in ISO format
             if given_date:
                 desired_date = str(date.fromisoformat(given_date))
-                return jsonify(oracle.get_next_movie_json(desired_date))
+                return jsonify(oracle.get_next_mcu_movie(desired_date))
             else:
-                return jsonify(oracle.get_next_movie_json())
+                return jsonify(oracle.get_next_mcu_movie())
 
         except ValueError:
-            return jsonify(oracle.get_next_movie_json())
+            return jsonify(oracle.get_next_mcu_movie())
 
     return app
