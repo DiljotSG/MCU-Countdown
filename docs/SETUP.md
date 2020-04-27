@@ -31,11 +31,20 @@ These steps are required for development.
 3. Install Python dependencies.
 
     ```shell
+    pip3 install -r dev-requirements.txt
     pip3 install -r requirements.txt
     ```
 
-4. Run the application locally.
+4. Run the flask application locally.
 
     ```shell
+    python3 handler.py
+    ```
+
+    Development Mode (Auto reloads on code changes):
+
+    ```shell
+    export FLASK_ENV=development
+
     python3 handler.py
     ```
