@@ -7,12 +7,13 @@ from datetime import date
 from flask_cors import CORS
 from flask_cors import cross_origin
 
+from src.constants.values import NOT_FOUND
 from src.services.oracle import Oracle
 
 
 def create_app():
     oracle = Oracle()
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='static', static_url_path='')
     app.config['CORS_HEADERS'] = 'Content-Type'
     CORS(app)
 
@@ -26,7 +27,9 @@ def create_app():
             'page.html',
             title=data.get("title", ""),
             days=data.get("days_until", 0),
-            poster_url=data.get("poster_url", "")
+            poster_url=data.get("poster_url", ""),
+            release_date=data.get("release_date", ""),
+            overview=data.get("overview", "")
         )
 
     # Return JSON data at /api
@@ -45,5 +48,9 @@ def create_app():
 
         except ValueError:
             return jsonify(oracle.get_next_mcu_movie())
+
+    @app.errorhandler(404)
+    def not_found(e):
+        return render_template("404.html"), NOT_FOUND
 
     return app

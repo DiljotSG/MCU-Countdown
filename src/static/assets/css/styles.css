@@ -1,0 +1,27 @@
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0 30px;
+	text-align: center;
+}
+
+header {
+	text-align: center;
+}
+
+.icons-social i {
+	padding: 10px;
+	font-size: 3em;
+}
+
+.devto {
+	margin-bottom: -0.20rem;
+}
+
+.devto svg {
+	margin-bottom: -0.20rem;
+	margin-left: 0.675rem;;
+	width: 2.65rem;
+	height: 2.65rem;
+}

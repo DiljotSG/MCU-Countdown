@@ -98,3 +98,4 @@ TMDB_LIST_SCHEMA = {
       }
    }
 }
+NOT_FOUND = 404
