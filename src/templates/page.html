@@ -3,16 +3,28 @@
 
 <head>
     <meta charset="UTF-8" />
-    <link rel="shortcut icon" href="static/img/favicon.png" />
+    <link rel="shortcut icon" href="/img/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#A62319" />
 
     <title>{{ title }} in {{ days }} days! | When is the next MCU film?</title>
-    <meta name="description" content="When is the next MCU film?" />
+    <meta name="description" content="When is the next MCU film? Let's find out together. This page displays up-to-date information on when the next MCU film releases!" />
+
+    <meta property="og:title" content="{{ title }} in {{ days }} days! | When is the next MCU film?" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://whenisthenextmcufilm.com/" />
+    <meta property="og:image" content="{{ poster_url }}" />
+    <meta property="og:description" content="When is the next MCU film? Let's find out together. This page displays up-to-date information on when the next MCU film releases!" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@countdown_mcu" />
+    <meta name="twitter:creator" content="@countdown_mcu" />
+    <meta name="twitter:title" content="{{ title }} in {{ days }} days! | When is the next MCU film?" />
+    <meta name="twitter:description" content="When is the next MCU film? Let's find out together. This page displays up-to-date information on when the next MCU film releases!" />
+    <meta name="twitter:image" content="{{ poster_url }}" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1/new.min.css" />
     <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css" />
-    <link rel="stylesheet" href="static/css/styles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
     <script src="https://kit.fontawesome.com/d96f018694.js" crossorigin="anonymous"></script>
 </head>
 
@@ -20,10 +32,11 @@
     <header>
         <h1>When is the next MCU film?</h1>
     </header>
-    
+
     <main>
         <div>
             <h2>{{ title }} releases in <i>{{ days }} days</i>!</h2>
+            <p>Release Date: {{ release_date }}</p>
             <img alt="The movie poster for {{ title }}." src="{{ poster_url }}" />
         </div>
 
@@ -37,20 +50,32 @@
 
     <footer>
         <blockquote>
-            This product uses the TMDb API but is not endorsed or certified by <a target="_blank" rel="noopener noreferrer" href="https://www.themoviedb.org/">TMDb</a>.
+            This product uses the TMDb API but is not endorsed or certified by <a target="_blank" rel="noopener noreferrer" href="https://www.themoviedb.org/">TMDb</a>
         </blockquote>
         <p>
-          Made with <i class="fas fa-heart"></i> by <a target="_blank" rel="noopener noreferrer" href="https://diljot.dev/">Diljot Garcha</a>.
+            Made with <i class="fas fa-heart"></i> by <a target="_blank" rel="noopener noreferrer" href="https://diljot.dev/">Diljot Garcha</a>
+        </p>
+        <p>
+            <a target="_blank" rel="noopener noreferrer" href="/api">API</a> |
+            <a target="_blank" rel="noopener noreferrer" href="https://github.com/DiljotSG/MCU-Countdown/blob/develop/docs/API.md">Documentation</a>
         </p>
     </footer>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146424187-2"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-146424187-2');
+        window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+    
+          gtag('config', 'UA-146424187-2');
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Movie",
+            "description": "{{ overview }}",
+            "name": "{{ title }}"
+          }
     </script>
 </body>
 
