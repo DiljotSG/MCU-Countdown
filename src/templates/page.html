@@ -1,23 +1,49 @@
 <!DOCTYPE html>
-  <html lang="en-US">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#A62319">
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="static/img/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#A62319" />
 
     <title>{{ title }} in {{ days }} days! | When is the next MCU film?</title>
-    <meta name="description" content="When is the next MCU film?">
+    <meta name="description" content="When is the next MCU film?" />
 
-    <link rel="shortcut icon" href="static/img/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Reem+Kufi|Roboto:300" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1/new.min.css" />
+    <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css" />
+    <link rel="stylesheet" href="static/css/styles.css" />
+    <script src="https://kit.fontawesome.com/d96f018694.js" crossorigin="anonymous"></script>
+</head>
 
-    <link rel="stylesheet" href="static/css/reset.css">
-    <link rel="stylesheet" href="static/css/styles.css">
-    <link rel="stylesheet" href="static/css/red-white.css">
+<body>
+    <header>
+        <h1>When is the next MCU film?</h1>
+    </header>
+    
+    <main>
+        <div>
+            <h2>{{ title }} releases in <i>{{ days }} days</i>!</h2>
+            <img alt="The movie poster for {{ title }}." src="{{ poster_url }}" />
+        </div>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+        <div class="icons-social">
+            <a target="_blank" rel="noopener noreferrer" href="https://github.com/DiljotSG/MCU-Countdown"><i class="fab fa-github"></i></a>
+            <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/countdown_mcu"><i class="fab fa-twitter"></i></a>
+        </div>
+    </main>
+
+    <hr />
+
+    <footer>
+        <blockquote>
+            This product uses the TMDb API but is not endorsed or certified by <a target="_blank" rel="noopener noreferrer" href="https://www.themoviedb.org/">TMDb</a>.
+        </blockquote>
+        <p>
+          Made with <i class="fas fa-heart"></i> by <a target="_blank" rel="noopener noreferrer" href="https://diljot.dev/">Diljot Garcha</a>.
+        </p>
+    </footer>
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146424187-2"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -26,33 +52,6 @@
 
       gtag('config', 'UA-146424187-2');
     </script>
-  </head>
-
-  <body>
-    <main>
-      <div class="intro">
-        <p>{{ title }} releases in {{ days }} days!</p>
-        <img 
-          alt="The movie poster for {{ title }}."
-          src="{{ poster_url }}"
-        >
-      </div>
-
-      <div class="icons-social">
-        <a target="_blank" href="https://github.com/DiljotSG/MCU-Countdown"><i class="fab fa-github"></i></a>
-        <a target="_blank" href="https://twitter.com/countdown_mcu"><i class="fab fa-twitter"></i></a>
-      </div>
-    </main>
-
-    <div class="footer">
-      This product uses the TMDb API but is not endorsed or certified by TMDb.
-      <a target="_blank" href="https://www.themoviedb.org/">
-        <img 
-          width="5%"
-          src="static/img/tmdb.svg"
-        >
-      </a>
-    </div>
-  </body>
+</body>
 
 </html>

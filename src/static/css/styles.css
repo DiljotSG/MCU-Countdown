@@ -1,39 +1,3 @@
-/* Typography */
-
-html {
-	font-family: 'Roboto', sans-serif;
-}
-
-@media (min-width: 576px) {
-	html {
-		font-size: 14px;
-	}
-}
-
-@media (min-width: 768px) {
-	html {
-		font-size: 16px;
-	}
-}
-
-@media (min-width: 992px) {
-	html {
-		font-size: 18px;
-	}
-}
-
-@media (min-width: 1200px) {
-	html {
-		font-size: 20px;
-	}
-}
-
-.icons-social i {
-	font-size: 3em;
-}
-
-/* Custom Styles */
-
 main {
 	display: flex;
 	flex-direction: column;
@@ -43,20 +7,13 @@ main {
 	text-align: center;
 }
 
-main > .intro {
-	font-family: 'Reem Kufi', sans-serif;
-	font-size: 3.75em;
-	font-weight: 600;
-}
-
-main > .tagline {
-	font-size: 1.5rem;
-	margin: 1.5rem 0;
-	font-weight: 100;
+header {
+	text-align: center;
 }
 
 .icons-social i {
 	padding: 10px;
+	font-size: 3em;
 }
 
 .devto {
