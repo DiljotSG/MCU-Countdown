@@ -17,7 +17,7 @@ class TestAPI(unittest.TestCase):
             "/",
             follow_redirects=True
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 404)
 
     def test_get_api(self):
         response = self.app.get(

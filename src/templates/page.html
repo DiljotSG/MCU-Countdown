@@ -37,7 +37,11 @@
         <div>
             <h2>{{ title }} releases in <i>{{ days }} days</i>!</h2>
             <p>Release Date: {{ release_date }}</p>
-            <img alt="The movie poster for {{ title }}." src="{{ poster_url }}" />
+            <p>Production Type: {{ type }}</p>
+            {% if upcoming_title is not none %}
+                <p>What's afterwards? <a href="{{ next_url }}">{{ upcoming_title }}</a></p>
+            {% endif %}
+            <img alt="The poster for {{ title }}." src="{{ poster_url }}" />
         </div>
 
         <div class="icons-social">

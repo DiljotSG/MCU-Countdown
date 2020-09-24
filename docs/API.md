@@ -2,7 +2,7 @@
 
 ## GET `/api`
 
-Returns a JSON object detailing the next MCU film.
+Returns a JSON object detailing the next MCU production.
 
 Example
 ```json
@@ -11,7 +11,9 @@ Example
     "overview": "Text Description",
     "poster_url": "https://image.tmdb.org/t/p/w500/path/to/poster.jpg",
     "release_date": "2020-05-01",
-    "title": "MCU Film Title"
+    "title": "MCU Film Title",
+    "type": "TV Show | Movie",
+    "following_production": {...}
 }
 ```
 
