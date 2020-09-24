@@ -3,7 +3,7 @@ from datetime import MAXYEAR
 from src.services.tmdb import TMDBService
 from src.constants.values import TMDB_MCU_LIST
 
-from typing import Optional
+from typing import Optional, List
 
 
 class Oracle:
@@ -11,53 +11,73 @@ class Oracle:
         self.tmdb: TMDBService = TMDBService()
         self.max_date = "{}-01-01".format(MAXYEAR)
 
-    def get_next_movie(
+    def get_next_production(
         self,
-        movie_list: Optional[dict] = None,
+        production_list: Optional[dict] = None,
         desired_date: Optional[str] = None
-    ) -> Optional[dict]:
-        if not movie_list:
-            movie_list = self.tmdb.get_list(TMDB_MCU_LIST)
+    ) -> Optional[List]:
+        if not production_list:
+            production_list = self.tmdb.get_list(TMDB_MCU_LIST)
 
-        if movie_list:
-            # Use the current date if we are not passed one
+        if production_list:
             if not desired_date:
-                # Get the current date in ISO format
                 desired_date = date.today().isoformat()
 
             try:
                 # Find the first film with a release date larger than the current date
-                index: int = next(i for i, v in enumerate(movie_list) if v.get("release_date", self.max_date) > desired_date)
+                index: int = next(
+                    i for i, v in enumerate(production_list)
+                    if v.get("release_date", v.get("first_air_date", self.max_date)) > desired_date
+                )
                 if index is not None:
-                    return movie_list[index]
+                    next_production = production_list[index]
+
+                    following_production = None
+                    if index + 1 < len(production_list):
+                        following_production = production_list[index + 1]
+
+                    return [next_production, following_production]
             except StopIteration:
                 pass
 
         return None
 
-    def get_next_mcu_movie(
+    def format_output_dict(self, tmdb_item: dict) -> dict:
+        result: dict = {}
+        release_date = tmdb_item.get("release_date", tmdb_item.get("first_air_date", None))
+        media_type = tmdb_item.get("media_type", "")
+        if release_date:
+            days_until = date.fromisoformat(release_date) - date.today()
+
+            result["release_date"] = release_date
+            result["title"] = tmdb_item.get("original_title", tmdb_item.get("original_name", ""))
+            result["poster_url"] = self.tmdb.give_poster_url(tmdb_item.get("poster_path", ""))
+            result["overview"] = tmdb_item.get("overview", "")
+            result["days_until"] = int(days_until.days)
+            result["type"] = "TV Show" if media_type == "tv" else "Movie"
+            return result
+        return {}
+
+    def get_next_mcu_production(
         self,
         desired_date: Optional[str] = None
     ) -> dict:
         result: dict = {}
-        next_movie: Optional[dict] = self.get_next_movie(
+        items: Optional[List[dict]] = self.get_next_production(
             desired_date=desired_date
         )
 
-        if next_movie:
-            # Use the current date if we are not passed one
-            if not desired_date:
-                # Get the current date in ISO format
-                desired_date = date.today().isoformat()
+        next_production: Optional[dict] = None
+        following_production: Optional[dict] = None
+        if items:
+            next_production = items[0]
+            if len(items) > 1:
+                following_production = items[1]
 
-            # Days until the movies' release
-            days_until = date.fromisoformat(next_movie.get("release_date", self.max_date)) - date.fromisoformat(desired_date)
+        if next_production:
+            result = self.format_output_dict(next_production)
 
-            # Format the result dictionary
-            result["title"] = next_movie["original_title"]
-            result["release_date"] = next_movie.get("release_date", self.max_date)
-            result["poster_url"] = self.tmdb.give_poster_url(next_movie["poster_path"])
-            result["overview"] = next_movie["overview"]
-            result["days_until"] = int(days_until.days)
+            if following_production:
+                result["following_production"] = self.format_output_dict(following_production)
 
         return result
