@@ -27,6 +27,7 @@ jobs:
     - name: Run mypy (Optional Static Typing for Python)
       run: |
         pip install mypy
+        mypy --install-types
         mypy src/ --ignore-missing-imports
     - name: Test with python unit test framework
       run: python -m unittest discover tests
