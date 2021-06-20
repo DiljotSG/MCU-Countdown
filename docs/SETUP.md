@@ -38,7 +38,7 @@ These steps are required for development.
 4. Run the flask application locally.
 
     ```shell
-    python3 handler.py
+    python3 index.py
     ```
 
     Development Mode (Auto reloads on code changes):
@@ -46,5 +46,5 @@ These steps are required for development.
     ```shell
     export FLASK_ENV=development
 
-    python3 handler.py
+    python3 index.py
     ```

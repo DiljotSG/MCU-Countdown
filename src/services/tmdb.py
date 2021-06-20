@@ -1,10 +1,10 @@
 import os
 import requests
 from src.common import is_valid_schema
-from src.constants.values import TMDB_BASE_URL
-from src.constants.values import TMDB_LNG_DEFAULT
-from src.constants.values import TMDB_LIST_SCHEMA
-from src.constants.values import TMDB_BASE_IMG_URL
+from src.consts import TMDB_BASE_URL
+from src.consts import TMDB_LNG_DEFAULT
+from src.consts import TMDB_LIST_SCHEMA
+from src.consts import TMDB_BASE_IMG_URL
 
 from typing import Optional
 
