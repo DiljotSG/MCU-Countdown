@@ -24,7 +24,7 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # The GitHub editor is 127 chars wide
         flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
-    - name: Run mypy (Optional Static Typing for Python)
+    - name: Run mypy (Optional Static Typing for Python Test)
       run: |
         pip install mypy
         mypy --install-types
