@@ -28,6 +28,6 @@ jobs:
       run: |
         pip install mypy
         mypy --install-types
-        mypy src/ --ignore-missing-imports
+        mypy src/ --ignore-missing-imports --cache-dir=.mypy_cache
     - name: Test with python unit test framework
       run: python -m unittest discover tests
