@@ -1,7 +1,7 @@
 from datetime import date
 from datetime import MAXYEAR
 from src.services.tmdb import TMDBService
-from src.constants.values import TMDB_MCU_LIST
+from src.consts import TMDB_MCU_LIST
 
 from typing import Optional, List
 

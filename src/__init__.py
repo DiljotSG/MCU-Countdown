@@ -8,13 +8,18 @@ from datetime import timedelta
 from flask_cors import CORS
 from flask_cors import cross_origin
 
-from src.constants.values import NOT_FOUND
+from src.consts import NOT_FOUND
 from src.services.oracle import Oracle
 
 
 def create_app():  # noqa: C901
     oracle = Oracle()
-    app = Flask(__name__, static_folder='static', static_url_path='')
+    app = Flask(
+        __name__,
+        template_folder='../templates',
+        static_folder='../static',
+        static_url_path=''
+    )
     app.config['CORS_HEADERS'] = 'Content-Type'
     CORS(app)
 
