@@ -6,7 +6,7 @@ plugins:
 
 custom:
   wsgi:
-    app: handler.app
+    app: index.app
     packRequirements: false
   pythonRequirements:
     dockerizePip: non-linux

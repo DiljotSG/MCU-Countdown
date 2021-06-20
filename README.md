@@ -1,9 +1,9 @@
 # MCU-Countdown
 When is the next MCU film?
 
-Master
+Main
 
-![Python CI](https://github.com/DiljotSG/MCU-Countdown/workflows/Python%20application/badge.svg?branch=master)
+[![Python application](https://github.com/DiljotSG/MCU-Countdown/actions/workflows/pythonapp.yml/badge.svg)](https://github.com/DiljotSG/MCU-Countdown/actions/workflows/pythonapp.yml)
 
 Develop
 
@@ -11,7 +11,7 @@ Develop
 
 ## API Endpoints
 
-**Production API Endpoint (Master Branch):** <https://www.whenisthenextmcufilm.com>
+**Production API Endpoint (Main Branch):** <https://www.whenisthenextmcufilm.com>
 
 **Development API Endpoint (Develop Branch):** <https://dev.whenisthenextmcufilm.com>
 
