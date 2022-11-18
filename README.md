@@ -1,5 +1,5 @@
 # MCU-Countdown
-When is the next MCU film?
+When is the next MCU film? A simple API.
 
 Main
 
