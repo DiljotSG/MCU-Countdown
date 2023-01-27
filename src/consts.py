@@ -27,7 +27,10 @@ TMDB_LIST_SCHEMA = {
             "type": "boolean"
           },
           "backdrop_path": {
-            "type": "string"
+            "type": [
+               "string",
+               "null"
+            ]
           },
           "genre_ids": {
             "type": "array",
@@ -86,19 +89,7 @@ TMDB_LIST_SCHEMA = {
           "original_name": {
             "type": "string"
           }
-        },
-        "required": [
-          "backdrop_path",
-          "genre_ids",
-          "id",
-          "media_type",
-          "original_language",
-          "overview",
-          "popularity",
-          "poster_path",
-          "vote_average",
-          "vote_count"
-        ]
+        }
       }
     },
     "item_count": {
@@ -111,17 +102,6 @@ TMDB_LIST_SCHEMA = {
       "type": "string"
     },
     "poster_path": {}
-  },
-  "required": [
-    "created_by",
-    "description",
-    "favorite_count",
-    "id",
-    "items",
-    "item_count",
-    "iso_639_1",
-    "name",
-    "poster_path"
-  ]
+  }
 }
 NOT_FOUND = 404
