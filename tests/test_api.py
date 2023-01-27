@@ -1,11 +1,12 @@
-import src
 import unittest
+
+import src
 
 
 class TestAPI(unittest.TestCase):
 
     def setUp(self):
-        app = src.create_app()
+        app = src.create_flask_app()
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
         app.config['DEBUG'] = False

@@ -1,6 +1,6 @@
 import src
 
-app = src.create_app()
+app = src.create_flask_app()
 
 
 def main():
