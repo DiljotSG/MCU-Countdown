@@ -1,12 +1,11 @@
 import os
-import requests
-from src.common import is_valid_schema
-from src.consts import TMDB_BASE_URL
-from src.consts import TMDB_LNG_DEFAULT
-from src.consts import TMDB_LIST_SCHEMA
-from src.consts import TMDB_BASE_IMG_URL
-
 from typing import Optional
+
+import requests
+
+from src.common import is_valid_schema
+from src.consts import (TMDB_BASE_IMG_URL, TMDB_BASE_URL, TMDB_LIST_SCHEMA,
+                        TMDB_LNG_DEFAULT)
 
 
 class TMDBService:
@@ -20,18 +19,18 @@ class TMDBService:
         self,
         rel_path: str
     ) -> Optional[requests.Response]:
-        if self.api_key:
-            return requests.get(
-                "https://{}/{}".format(TMDB_BASE_URL, rel_path),
-                params={
-                    "api_key": self.api_key,
-                    "language": TMDB_LNG_DEFAULT
-                },
-                headers={
-                    "Content-Type": "application/json"
-                }
-            )
-        return None
+        if not self.api_key:
+            return None
+        return requests.get(
+            "https://{}/{}".format(TMDB_BASE_URL, rel_path),
+            params={
+                "api_key": self.api_key,
+                "language": TMDB_LNG_DEFAULT
+            },
+            headers={
+                "Content-Type": "application/json"
+            }
+        )
 
     def get_list(
         self,

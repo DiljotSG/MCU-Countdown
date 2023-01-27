@@ -1,9 +1,8 @@
-from datetime import date
-from datetime import MAXYEAR
-from src.services.tmdb import TMDBService
-from src.consts import TMDB_MCU_LIST
+from datetime import MAXYEAR, date
+from typing import List, Optional
 
-from typing import Optional, List
+from src.consts import TMDB_MCU_LIST
+from src.services.tmdb import TMDBService
 
 
 class Oracle:
@@ -46,17 +45,19 @@ class Oracle:
         result: dict = {}
         release_date = tmdb_item.get("release_date", tmdb_item.get("first_air_date", None))
         media_type = tmdb_item.get("media_type", "")
-        if release_date:
-            days_until = date.fromisoformat(release_date) - date.today()
 
-            result["release_date"] = release_date
-            result["title"] = tmdb_item.get("original_title", tmdb_item.get("original_name", ""))
-            result["poster_url"] = self.tmdb.give_poster_url(tmdb_item.get("poster_path", ""))
-            result["overview"] = tmdb_item.get("overview", "")
-            result["days_until"] = int(days_until.days)
-            result["type"] = "TV Show" if media_type == "tv" else "Movie"
-            return result
-        return {}
+        if not release_date:
+            return {}
+
+        days_until = date.fromisoformat(release_date) - date.today()
+
+        result["release_date"] = release_date
+        result["title"] = tmdb_item.get("original_title", tmdb_item.get("original_name", ""))
+        result["poster_url"] = self.tmdb.give_poster_url(tmdb_item.get("poster_path", ""))
+        result["overview"] = tmdb_item.get("overview", "")
+        result["days_until"] = int(days_until.days)
+        result["type"] = "TV Show" if media_type == "tv" else "Movie"
+        return result
 
     def get_next_mcu_production(
         self,

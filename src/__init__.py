@@ -1,6 +1,7 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_cors import CORS
 
+from src.consts import NOT_FOUND
 from src.routes.root import mod as root_mod
 
 
@@ -24,5 +25,9 @@ def create_flask_app():
     CORS(app)
 
     app.register_blueprint(root_mod, url_prefix="/")
+
+    @app.errorhandler(404)
+    def not_found(e):
+        return render_template("404.html"), NOT_FOUND
 
     return app
