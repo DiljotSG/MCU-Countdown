@@ -44,7 +44,13 @@ These steps are required for development.
     Development Mode (Auto reloads on code changes):
 
     ```shell
-    export FLASK_ENV=development
+    export FLASK_DEBUG=development
 
     python3 index.py
+    ```
+
+5. In order for the application to work you will need a [TMDb API Key](https://developers.themoviedb.org/3) which requires making an account. Once you have fetched your key you will need to export it as an environment variable as so.
+
+    ```shell
+    export TMDB_API_KEY=key
     ```

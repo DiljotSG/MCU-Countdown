@@ -1,4 +1,5 @@
 import unittest
+
 from src.services.oracle import Oracle
 
 
