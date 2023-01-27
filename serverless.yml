@@ -13,7 +13,7 @@ custom:
 
 provider:
   name: aws
-  runtime: python3.8
+  runtime: python3.10
   stage: dev
   region: us-east-1
   environment:
