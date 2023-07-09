@@ -57,6 +57,7 @@ class Oracle:
         result["overview"] = tmdb_item.get("overview", "")
         result["days_until"] = int(days_until.days)
         result["type"] = "TV Show" if media_type == "tv" else "Movie"
+        result["id"] = tmdb_item.get("id", -1)
         return result
 
     def get_next_mcu_production(
