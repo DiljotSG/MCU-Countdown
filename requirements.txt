@@ -1,5 +1,5 @@
 Flask==1.1.4
 Flask-Cors==3.0.9
-requests==2.23.0
+requests==2.31.0
 jsonschema==3.2.0
 markupsafe==2.0.1
