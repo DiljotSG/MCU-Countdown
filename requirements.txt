@@ -1,4 +1,4 @@
-Flask==1.1.4
+Flask==2.2.5
 Flask-Cors==3.0.9
 requests==2.23.0
 jsonschema==3.2.0
