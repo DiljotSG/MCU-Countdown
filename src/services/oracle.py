@@ -15,8 +15,18 @@ class Oracle:
         production_list: Optional[dict] = None,
         desired_date: Optional[str] = None
     ) -> Optional[List]:
+        response = None
+
         if not production_list:
-            production_list = self.tmdb.get_list(TMDB_MCU_LIST)
+            response = self.tmdb.get_list(TMDB_MCU_LIST)
+            if response:
+                production_list = response["items"]
+                current_page = response["page"]
+                total_num_pages = response["total_pages"]
+
+                if current_page < total_num_pages:
+                    response = self.tmdb.get_list(TMDB_MCU_LIST, total_num_pages)
+                    production_list = response["items"]
 
         if production_list:
             if not desired_date:
@@ -57,6 +67,7 @@ class Oracle:
         result["overview"] = tmdb_item.get("overview", "")
         result["days_until"] = int(days_until.days)
         result["type"] = "TV Show" if media_type == "tv" else "Movie"
+        result["id"] = tmdb_item.get("id", -1)
         return result
 
     def get_next_mcu_production(
