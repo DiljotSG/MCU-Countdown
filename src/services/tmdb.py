@@ -17,7 +17,8 @@ class TMDBService:
 
     def send_request(
         self,
-        rel_path: str
+        rel_path: str,
+        page_num: int = 1
     ) -> Optional[requests.Response]:
         if not self.api_key:
             return None
@@ -25,7 +26,8 @@ class TMDBService:
             "https://{}/{}".format(TMDB_BASE_URL, rel_path),
             params={
                 "api_key": self.api_key,
-                "language": TMDB_LNG_DEFAULT
+                "language": TMDB_LNG_DEFAULT,
+                "page": page_num
             },
             headers={
                 "Content-Type": "application/json"
@@ -34,11 +36,12 @@ class TMDBService:
 
     def get_list(
         self,
-        list_num: int
+        list_num: int,
+        page_num: int = 1
     ) -> Optional[dict]:
-        result = self.send_request("list/{}".format(list_num))
+        result = self.send_request("list/{}".format(list_num), page_num)
         if result and is_valid_schema(result.json(), TMDB_LIST_SCHEMA):
-            return result.json()["items"]
+            return result.json()
         return None
 
     def give_poster_url(
