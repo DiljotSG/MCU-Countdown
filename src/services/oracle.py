@@ -18,17 +18,9 @@ class Oracle:
         response = None
 
         if not production_list:
-            response = self.tmdb.get_list(TMDB_MCU_LIST)
-
+            response = self.tmdb.get_last_page_list(TMDB_MCU_LIST)
             if response:
                 production_list = response["items"]
-                current_page = response["page"]
-                total_num_pages = response["total_pages"]
-
-                if current_page < total_num_pages:
-                    response = self.tmdb.get_list(TMDB_MCU_LIST, total_num_pages)
-                    if response:
-                        production_list = response["items"]
 
         if production_list:
             if not desired_date:
