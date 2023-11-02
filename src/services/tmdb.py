@@ -41,7 +41,7 @@ class TMDBService:
         if result:
             return result.json()
         return None
-    
+
     def get_last_page_list(
         self,
         list_num: int
@@ -56,7 +56,7 @@ class TMDBService:
                 result = self.get_list(list_num, last_page)
 
         return result
-        
+
     def give_poster_url(
         self,
         path_to_img: str
