@@ -3,9 +3,7 @@ from typing import Optional
 
 import requests
 
-from src.common import is_valid_schema
-from src.consts import (TMDB_BASE_IMG_URL, TMDB_BASE_URL, TMDB_LIST_SCHEMA,
-                        TMDB_LNG_DEFAULT)
+from src.consts import (TMDB_BASE_IMG_URL, TMDB_BASE_URL, TMDB_LNG_DEFAULT)
 
 
 class TMDBService:
@@ -40,9 +38,24 @@ class TMDBService:
         page_num: int = 1
     ) -> Optional[dict]:
         result = self.send_request("list/{}".format(list_num), page_num)
-        if result and is_valid_schema(result.json(), TMDB_LIST_SCHEMA):
+        if result:
             return result.json()
         return None
+
+    def get_last_page_list(
+        self,
+        list_num: int
+    ) -> Optional[dict]:
+        result = self.get_list(list_num)
+
+        if result:
+            current_page = result["page"]
+            last_page = result["total_pages"]
+
+            if current_page < last_page:
+                result = self.get_list(list_num, last_page)
+
+        return result
 
     def give_poster_url(
         self,
