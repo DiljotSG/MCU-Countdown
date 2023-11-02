@@ -3,7 +3,6 @@ from typing import Optional
 
 import requests
 
-from src.common import is_valid_schema
 from src.consts import (TMDB_BASE_IMG_URL, TMDB_BASE_URL, TMDB_LIST_SCHEMA,
                         TMDB_LNG_DEFAULT)
 
@@ -40,7 +39,7 @@ class TMDBService:
         page_num: int = 1
     ) -> Optional[dict]:
         result = self.send_request("list/{}".format(list_num), page_num)
-        if result and is_valid_schema(result.json(), TMDB_LIST_SCHEMA):
+        if result:
             return result.json()
         return None
 

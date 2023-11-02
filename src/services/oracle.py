@@ -19,6 +19,7 @@ class Oracle:
 
         if not production_list:
             response = self.tmdb.get_list(TMDB_MCU_LIST)
+
             if response:
                 production_list = response["items"]
                 current_page = response["page"]
@@ -26,7 +27,8 @@ class Oracle:
 
                 if current_page < total_num_pages:
                     response = self.tmdb.get_list(TMDB_MCU_LIST, total_num_pages)
-                    production_list = response["items"]
+                    if response:
+                        production_list = response["items"]
 
         if production_list:
             if not desired_date:
