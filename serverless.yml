@@ -13,12 +13,15 @@ custom:
 
 provider:
   name: aws
-  runtime: python3.8
+  runtime: python3.11
   stage: dev
   region: us-east-1
+  timeout: 30
+  memorySize: 512
   environment:
     IS_LAMBDA: true
     TMDB_API_KEY: "${env:TMDB_API_KEY}"
+    LOG_LEVEL: "${env:LOG_LEVEL, 'INFO'}"
 
 functions:
   api:
@@ -52,5 +55,4 @@ package:
   - requirements.txt
   - package.json
   - package-lock.json
-  - tox.ini
   
