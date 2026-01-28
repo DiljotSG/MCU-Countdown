@@ -1,15 +1,9 @@
 # MCU-Countdown
 
 When is the next MCU film? A simple but powerful API wrapper for TMDB lists.
-
-## What's New
-
-This API has been significantly improved with:
-- The ability to use any custom TMDB list, not just the MCU. You can track Star Wars, DC, The Batman, or other custom collections!
-- In-memory caching with TTL support.
+New! Can be easily run or self hosted using Docker. See [compose.yml](compose.yml)
 
 **Production API Endpoint:** <https://www.whenisthenextmcufilm.com>
-**Development API Endpoint:** <https://dev.whenisthenextmcufilm.com>
 
 ## Quick Start
 
@@ -74,14 +68,6 @@ curl "https://www.whenisthenextmcufilm.com/api?date=2025-01-01&list_id=YOUR_LIST
   }
 }
 ```
-
-## Technology Stack
-
-- **Framework**: Flask 3.0
-- **Deployment**: AWS Lambda (Serverless)
-- **Runtime**: Python 3.11
-- **Caching**: In-memory with TTL
-- **API**: TMDB (The Movie Database)
 
 ## Contributing
 

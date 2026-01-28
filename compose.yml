@@ -1,0 +1,9 @@
+services:
+  mcu-countdown:
+    image: diljotsg301/mcu-countdown:2.0.0
+    container_name: mcu-countdown
+    ports:
+      - "5000:5000"
+    environment:
+      TMDB_API_KEY: "${TMDB_API_KEY}"
+    restart: unless-stopped
