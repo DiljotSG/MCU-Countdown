@@ -19,7 +19,6 @@ def create_flask_app():
         __name__,
         template_folder="../templates",
         static_folder="../static",
-        static_url_path="",
     )
     app.config["CORS_HEADERS"] = "Content-Type"
     CORS(app)
