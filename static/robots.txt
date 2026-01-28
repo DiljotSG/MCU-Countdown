@@ -1,4 +1,18 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Sitemap: https://whenisthenextmcufilm.com/sitemap.xml
-Disallow:
+
+# Allow official named routes and API
+Allow: /$
+Allow: /star-wars$
+Allow: /dc$
+Allow: /batman$
+Allow: /api$
+Allow: /assets/
+
+# Disallow custom user lists (we're not responsible for third-party content)
+Disallow: /*?list_id=*
+Disallow: /api?list_id=*
+
+# Disallow query parameters with date on custom lists
+Disallow: /*?*list_id=*

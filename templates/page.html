@@ -6,6 +6,9 @@
     <link rel="shortcut icon" href="/assets/img/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#A62319" />
+    {% if is_custom_list %}
+    <meta name="robots" content="noindex, nofollow" />
+    {% endif %}
 
     <title>{{ title }} in {{ days }} days! | When is the next MCU film?</title>
     <meta name="description" content="When is the next MCU film? Let's find out together. This page displays up-to-date information on when the next MCU film releases!" />
@@ -15,12 +18,6 @@
     <meta property="og:url" content="https://whenisthenextmcufilm.com/" />
     <meta property="og:image" content="{{ poster_url }}" />
     <meta property="og:description" content="When is the next MCU film? Let's find out together. This page displays up-to-date information on when the next MCU film releases!" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@countdown_mcu" />
-    <meta name="twitter:creator" content="@countdown_mcu" />
-    <meta name="twitter:title" content="{{ title }} in {{ days }} days! | When is the next MCU film?" />
-    <meta name="twitter:description" content="When is the next MCU film? Let's find out together. This page displays up-to-date information on when the next MCU film releases!" />
-    <meta name="twitter:image" content="{{ poster_url }}" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1/new.min.css" />
     <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css" />
@@ -46,13 +43,22 @@
 
         <div class="icons-social">
             <a target="_blank" rel="noopener noreferrer" href="https://github.com/DiljotSG/MCU-Countdown"><i class="fab fa-github"></i></a>
-            <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/countdown_mcu"><i class="fab fa-twitter"></i></a>
         </div>
     </main>
 
     <hr />
 
     <footer>
+        <p>
+            <strong>Other Countdowns:</strong>
+            <a href="/star-wars">Star Wars</a> |
+            <a href="/dc">DC</a> |
+            <a href="/batman">Batman</a> |
+            <a href="/">MCU</a>
+        </p>
+        <p style="font-size: 0.85rem;">
+            Want your own? <a href="https://www.themoviedb.org/list/new" target="_blank" rel="noopener noreferrer">Create a TMDB list</a> and use <code>?list_id=YOUR_ID</code>
+        </p>
         <blockquote>
             This product uses the TMDb API but is not endorsed or certified by <a target="_blank" rel="noopener noreferrer" href="https://www.themoviedb.org/">TMDb</a>
         </blockquote>
