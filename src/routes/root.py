@@ -2,8 +2,8 @@ from datetime import date, timedelta
 
 from flask import Blueprint, jsonify, make_response, render_template, request
 from flask_cors import CORS, cross_origin
+from werkzeug.exceptions import NotFound
 
-from src.common import is_valid_date
 from src.consts import NAMED_LISTS
 from src.services.oracle import Oracle
 
@@ -19,16 +19,13 @@ def add_cache_headers(response, max_age=3600):
 
 
 def render_page(data: dict, list_id: int = None):
-    # If we get here with no data, something went wrong - raise 404
     if data is None or len(data) < 1:
-        from werkzeug.exceptions import NotFound
         raise NotFound()
 
     release_date = data.get("release_date", None)
     next_url = None
     if release_date:
         next_day = date.fromisoformat(release_date) + timedelta(days=1)
-        # Preserve list_id in next_url
         if list_id:
             next_url = "/?date={}&list_id={}".format(date.isoformat(next_day), list_id)
         else:
@@ -50,15 +47,14 @@ def render_page(data: dict, list_id: int = None):
 def handle_countdown_request(list_id: int = None, list_name: str = None):
     given_date = request.args.get("date", type=str)
 
-    # Validate date if provided
-    if given_date and not is_valid_date(given_date):
-        given_date = None  # Fall back to today
+    try:
+        desired_date = date.fromisoformat(given_date) if given_date else None
+    except (ValueError, TypeError):
+        desired_date = None
 
-    # Determine the date to use
-    desired_date = str(date.fromisoformat(given_date)) if given_date else None
-
-    # Fetch production data - let exceptions bubble up to app error handlers
-    data = oracle.get_next_mcu_production(desired_date=desired_date, tmdb_list_id=list_id)
+    data = oracle.get_next_mcu_production(
+        desired_date=desired_date, tmdb_list_id=list_id
+    )
     response = make_response(render_page(data, list_id=list_id))
     return add_cache_headers(response)
 
@@ -74,7 +70,6 @@ def root():
 @cross_origin()
 def named_list(list_name: str):
     if list_name not in NAMED_LISTS:
-        from werkzeug.exceptions import NotFound
         raise NotFound()
 
     list_config = NAMED_LISTS[list_name]
@@ -89,15 +84,13 @@ def api():
     given_date = request.args.get("date", type=str)
     list_id = request.args.get("list_id", type=int)
 
-    # Validate date if provided
-    if given_date and not is_valid_date(given_date):
-        given_date = None
+    try:
+        desired_date = date.fromisoformat(given_date) if given_date else None
+    except (ValueError, TypeError):
+        desired_date = None
 
-    # Determine the date to use
-    desired_date = str(date.fromisoformat(given_date)) if given_date else None
-
-    # Fetch data - exceptions will be caught by app-level error handlers
-    # and formatted as JSON automatically
-    data = oracle.get_next_mcu_production(desired_date=desired_date, tmdb_list_id=list_id)
+    data = oracle.get_next_mcu_production(
+        desired_date=desired_date, tmdb_list_id=list_id
+    )
     response = make_response(jsonify(data))
     return add_cache_headers(response)

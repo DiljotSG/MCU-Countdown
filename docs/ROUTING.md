@@ -36,23 +36,23 @@ JSON responses for any list:
 To add a new named route, edit `src/consts.py`:
 
 ```python
+# Add a new list ID constant
+TMDB_ANIME_LIST = 12345
+
+# Add to NAMED_LISTS
 NAMED_LISTS = {
+    "mcu": {
+        "list_id": TMDB_MCU_LIST,
+        "name": "Marvel Cinematic Universe",
+    },
     "star-wars": {
-        "list_id": 8563040,
+        "list_id": TMDB_STAR_WARS_LIST,
         "name": "Star Wars",
     },
-    "dc": {
-        "list_id": 8563041,
-        "name": "DC Universe",
-    },
-    "batman": {
-        "list_id": 8563043,
-        "name": "Matt Reeves Batman Universe",
-    },
-    # Add your new route here:
+    # Add your new route:
     "anime": {
-        "list_id": YOUR_LIST_ID,
+        "list_id": TMDB_ANIME_LIST,
         "name": "Anime",
-    }
+    },
 }
 ```
