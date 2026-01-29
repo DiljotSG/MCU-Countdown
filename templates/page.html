@@ -10,10 +10,10 @@
     <meta name="robots" content="noindex, nofollow" />
     {% endif %}
 
-    <title>{{ title }} in {{ days }} days! | When is the next MCU film?</title>
+    <title>{{ title }} in {{ days }} day(s)! | When is the next MCU film?</title>
     <meta name="description" content="When is the next MCU film? Let's find out together. This page displays up-to-date information on when the next MCU film releases!" />
 
-    <meta property="og:title" content="{{ title }} in {{ days }} days! | When is the next MCU film?" />
+    <meta property="og:title" content="{{ title }} in {{ days }} day(s)! | When is the next MCU film?" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://whenisthenextmcufilm.com/" />
     <meta property="og:image" content="{{ poster_url }}" />
@@ -32,7 +32,7 @@
 
     <main>
         <div>
-            <h2>{{ title }} releases in <i>{{ days }} days</i>!</h2>
+            <h2>{{ title }} releases in <i>{{ days }} day(s)</i>!</h2>
             <p>Release Date: {{ release_date }}</p>
             <p>Production Type: {{ type }}</p>
             {% if upcoming_title is not none %}
