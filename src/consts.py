@@ -26,4 +26,8 @@ NAMED_LISTS = {
         "list_id": TMDB_BATMAN_LIST,
         "name": "Matt Reeves' Batman Universe",
     },
+    "diljots-list": {
+        "list_id": 8630149,
+        "name": "Movies that I'm excited for - Diljot",
+    }
 }
