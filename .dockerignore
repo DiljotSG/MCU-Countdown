@@ -16,6 +16,6 @@ LICENSE
 CODEOWNERS
 
 dev-requirements.txt
-compose.yml
+docker-compose.yml
 .dockerignore
 Dockerfile
