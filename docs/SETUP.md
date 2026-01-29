@@ -51,7 +51,7 @@ These steps are required for development.
 
     ```shell
     pip install -r requirements.txt
-    pip install -r dev-requirements.txt  # For testing and development tools
+    pip install -r dev-requirements.txt  # For linting and formatting tools
     ```
 
 5. Set up environment variables.
@@ -69,8 +69,7 @@ These steps are required for development.
     export LOG_LEVEL=DEBUG
 
     # Enable Flask debug mode for auto-reload
-    export FLASK_DEBUG=1
-    export FLASK_ENV=development
+    export FLASK_DEBUG=true
     ```
 
 6. Run the Flask application locally.
@@ -95,7 +94,7 @@ These steps are required for development.
 
 ## Running Tests
 
-1. Ensure you're in the virtual environment with dev dependencies installed.
+1. Ensure you're in the virtual environment with dependencies installed.
 
 2. Run all tests:
 
@@ -106,63 +105,58 @@ These steps are required for development.
 3. Run specific test file:
 
     ```shell
-    python3 -m unittest tests.test_cache -v
     python3 -m unittest tests.test_api -v
     python3 -m unittest tests.test_tmdb -v
     python3 -m unittest tests.test_oracle -v
+    python3 -m unittest tests.test_production -v
     ```
 
 ## Deployment
 
-This application is designed to deploy to AWS Lambda using the Serverless Framework.
+### Docker
 
-1. Install Node.js and npm (for Serverless Framework).
+1. Build the Docker image.
 
     ```shell
-    brew install node
+    docker build -t mcu-countdown .
     ```
 
-2. Install Serverless Framework and plugins.
+2. Run the container.
 
     ```shell
-    npm install
+    docker run -p 5000:5000 -e TMDB_API_KEY=your_api_key mcu-countdown
     ```
 
-3. Configure AWS credentials.
+### Docker Compose
+
+1. Set your API key in an `.env` file or export it.
 
     ```shell
-    aws configure
+    export TMDB_API_KEY=your_api_key
     ```
 
-4. Deploy to AWS.
+2. Run with Docker Compose.
 
     ```shell
-    # Deploy to development
-    serverless deploy --stage dev
-
-    # Deploy to production
-    serverless deploy --stage prod
+    docker compose up
     ```
 
 ## Configuration
 
 ### Cache Settings
 
-The in-memory cache is configured in `src/services/tmdb.py`. Default TTL is 3600 seconds (1 hour).
+The cache uses `cachetools.TTLCache` with a 1 hour TTL. Cache settings are defined in `src/services/tmdb.py`:
 
-To modify cache TTL:
 ```python
-# In src/services/tmdb.py
-TMDBService(cache_ttl=7200)  # 2 hours
+_list_cache = TTLCache(maxsize=100, ttl=3600)
+_last_page_cache = TTLCache(maxsize=100, ttl=3600)
 ```
 
 ### Response Cache Headers
 
 HTTP cache headers are configured in `src/routes/root.py`. Default is 3600 seconds (1 hour).
 
-To modify cache headers:
 ```python
-# In src/routes/root.py
 add_cache_headers(response, max_age=7200)  # 2 hours
 ```
 

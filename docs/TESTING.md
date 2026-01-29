@@ -55,8 +55,6 @@ isort src/ tests/
 ## Continuous Integration
 
 All tests run automatically on every push via GitHub Actions:
-- Unit tests with Python 3.11
+- Unit tests with Python 3.12
 - Flake8 linting
 - Runs on all branches
-
-See `.github/workflows/pythonapp.yml` for the CI configuration.

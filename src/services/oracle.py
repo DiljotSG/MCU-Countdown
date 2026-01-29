@@ -1,18 +1,21 @@
 from datetime import MAXYEAR, date
 from typing import List, Optional, Tuple
 
-from src.consts import TMDB_MCU_LIST
+from src.consts import TMDB_DEFAULT_LIST
 from src.exceptions import ListNotFoundError, NoUpcomingProductionsError
+from src.objects.production import Production
 from src.services.tmdb import TMDBService
 
 
 class Oracle:
     def __init__(self):
         self.tmdb: TMDBService = TMDBService()
-        self.max_date = "{}-01-01".format(MAXYEAR)
+        self.max_date = date(MAXYEAR, 1, 1)
 
-    def _fetch_production_list(self, tmdb_list_id: Optional[int] = None) -> List[dict]:
-        list_id = tmdb_list_id if tmdb_list_id else TMDB_MCU_LIST
+    def _fetch_production_list(
+        self, tmdb_list_id: Optional[int] = None
+    ) -> List[Production]:
+        list_id = tmdb_list_id if tmdb_list_id else TMDB_DEFAULT_LIST
         response = self.tmdb.get_last_page_list(list_id)
 
         if not response:
@@ -23,113 +26,84 @@ class Oracle:
         if not production_list:
             raise ListNotFoundError(list_id, f"List {list_id} exists but has no items")
 
-        return production_list
-
-    def _get_production_release_date(self, production: dict) -> str:
-        return production.get("release_date", production.get("first_air_date", self.max_date))
+        return [Production.from_tmdb_dict(item) for item in production_list]
 
     def _find_next_after_date(
-        self, productions: List[dict],
-        desired_date: str,
-        list_id: Optional[int] = None
-    ) -> Optional[int]:
-        try:
-            index = next(
-                i
-                for i, prod in enumerate(productions)
-                if self._get_production_release_date(prod) > desired_date
-            )
-            return index
-        except StopIteration:
-            raise NoUpcomingProductionsError(list_id=list_id, desired_date=desired_date)
-
-    def _get_following_production(
         self,
-        productions: List[dict],
-        current_index: int,
-    ) -> Optional[dict]:
-        if current_index + 1 < len(productions):
-            return productions[current_index + 1]
-        return None
+        productions: List[Production],
+        desired_date: date,
+        list_id: Optional[int] = None,
+    ) -> Tuple[Production, Optional[Production]]:
+        for i, prod in enumerate(productions):
+            release_date = prod.release_date if prod.release_date else self.max_date
+
+            if release_date > desired_date:
+                next_production = prod
+                following_production = (
+                    productions[i + 1] if i + 1 < len(productions) else None
+                )
+                return next_production, following_production
+
+        raise NoUpcomingProductionsError(
+            list_id=list_id, desired_date=desired_date.isoformat()
+        )
 
     def get_next_production(
         self,
-        production_list: Optional[List[dict]] = None,
-        desired_date: Optional[str] = None,
+        production_list: Optional[List[Production]] = None,
+        desired_date: Optional[date] = None,
         tmdb_list_id: Optional[int] = None,
-    ) -> Optional[Tuple[dict, Optional[dict]]]:
-        # Fetch production list if not provided
+    ) -> Tuple[Production, Optional[Production]]:
         if not production_list:
             production_list = self._fetch_production_list(tmdb_list_id)
 
-        # Use today's date if not specified
-        if not desired_date:
-            desired_date = date.today().isoformat()
+        if desired_date is None:
+            desired_date = date.today()
 
-        # Determine the actual list_id being used
-        actual_list_id = tmdb_list_id if tmdb_list_id else TMDB_MCU_LIST
+        actual_list_id = tmdb_list_id if tmdb_list_id else TMDB_DEFAULT_LIST
 
-        # Find the next production after the desired date
-        index = self._find_next_after_date(production_list, desired_date, actual_list_id)
+        return self._find_next_after_date(production_list, desired_date, actual_list_id)
 
-        if index is None:
+    def format_output_dict(self, production: Production) -> Optional[dict]:
+        if production.release_date is None:
             return None
 
-        next_production = production_list[index]
+        days_until = production.days_until_release()
 
-        # Get the following production if available
-        following_production = self._get_following_production(production_list, index)
-
-        return next_production, following_production
-
-    def format_output_dict(self, tmdb_item: dict) -> dict:
-        result: dict = {}
-        release_date = tmdb_item.get(
-            "release_date", tmdb_item.get("first_air_date", None)
-        )
-        media_type = tmdb_item.get("media_type", "")
-
-        if not release_date:
-            return {}
-
-        days_until = date.fromisoformat(release_date) - date.today()
-
-        result["release_date"] = release_date
-        result["title"] = tmdb_item.get(
-            "original_title", tmdb_item.get("original_name", "")
-        )
-        result["poster_url"] = self.tmdb.give_poster_url(
-            tmdb_item.get("poster_path", "")
-        )
-        result["overview"] = tmdb_item.get("overview", "")
-        result["days_until"] = int(days_until.days)
-        result["type"] = "TV Show" if media_type == "tv" else "Movie"
-        result["id"] = tmdb_item.get("id", -1)
-        return result
+        return {
+            "release_date": production.release_date.isoformat(),
+            "title": production.title,
+            "poster_url": (
+                self.tmdb.give_poster_url(production.poster_path)
+                if production.poster_path
+                else None
+            ),
+            "overview": production.overview,
+            "days_until": days_until,
+            "type": production.display_type,
+            "id": production.id,
+        }
 
     def get_next_mcu_production(
         self,
-        desired_date: Optional[str] = None,
+        desired_date: Optional[date] = None,
         tmdb_list_id: Optional[int] = None,
     ) -> dict:
-        result: dict = {}
+        try:
+            next_production, following_production = self.get_next_production(
+                desired_date=desired_date, tmdb_list_id=tmdb_list_id
+            )
+        except (ListNotFoundError, NoUpcomingProductionsError):
+            return {}
 
-        items = self.get_next_production(
-            desired_date=desired_date,
-            tmdb_list_id=tmdb_list_id
-        )
+        result = self.format_output_dict(next_production)
 
-        if not items:
-            return result
+        if result is None:
+            return {}
 
-        next_production, following_production = items
-
-        if next_production:
-            result = self.format_output_dict(next_production)
-
-            if following_production:
-                result["following_production"] = self.format_output_dict(
-                    following_production
-                )
+        if following_production:
+            following_result = self.format_output_dict(following_production)
+            if following_result:
+                result["following_production"] = following_result
 
         return result

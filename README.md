@@ -1,9 +1,37 @@
 # MCU-Countdown
 
 When is the next MCU film? A simple but powerful API wrapper for TMDB lists.
-New! Can be easily run or self hosted using Docker. See [compose.yml](compose.yml)
 
 **Production API Endpoint:** <https://www.whenisthenextmcufilm.com>
+
+## Running with Docker
+
+The app can be run and self-hosted using Docker Compose.
+
+Create a [`docker-compose.yml`](docker-compose.yml).
+
+### Docker Compose
+
+```bash
+# Set your TMDB API key or set it in a .env file
+export TMDB_API_KEY=your_api_key_here
+
+# Run the app
+docker compose up -d
+```
+
+The app will be available at `http://localhost:5000`
+
+
+### Building Image with Docker
+
+```bash
+# Build the image
+docker build -t mcu-countdown .
+
+# Run the container
+docker run -p 5000:5000 -e TMDB_API_KEY=your_api_key_here mcu-countdown
+```
 
 ## Quick Start
 
