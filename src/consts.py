@@ -6,6 +6,7 @@ TMDB_MCU_LIST = 140624
 TMDB_STAR_WARS_LIST = 8563040
 TMDB_DC_LIST = 8563041
 TMDB_BATMAN_LIST = 8563043
+TMDB_DILJOTS_LIST = 8630149
 
 TMDB_DEFAULT_LIST = TMDB_MCU_LIST
 
@@ -27,7 +28,7 @@ NAMED_LISTS = {
         "name": "Matt Reeves' Batman Universe",
     },
     "diljots-list": {
-        "list_id": 8630149,
+        "list_id": TMDB_DILJOTS_LIST,
         "name": "Movies that I'm excited for - Diljot",
     }
 }
