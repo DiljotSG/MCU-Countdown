@@ -1,26 +1,26 @@
 # Setup
 
-This codebase uses **Python 3.11** (minimum 3.10). These setup instructions are for macOS using [Homebrew](https://brew.sh).
+This codebase uses **Python 3.12**. These setup instructions are for macOS using [Homebrew](https://brew.sh).
 Installing these dependencies should be similar for other platforms with the appropriate package managers for that platform.
 
 ## Prerequisites
 
-- Python 3.11 or higher
+- Python 3.12 or higher
 - A [TMDb API Key](https://developers.themoviedb.org/3) (requires free account)
 
 ## Python3 Installation
 
-1. Install Python 3.11.
+1. Install Python 3.12.
 
     ```shell
-    brew install python@3.11
+    brew install python@3.12
     ```
 
 2. Verify installation:
 
     ```shell
     python3 --version
-    # Should show Python 3.11.x or higher
+    # Should show Python 3.12.x or higher
     ```
 
 ## Local Development Setup
