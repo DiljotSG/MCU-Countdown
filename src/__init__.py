@@ -17,6 +17,7 @@ class RelaxedFlask(Flask):
 def create_flask_app():
     app = RelaxedFlask(
         __name__,
+        static_url_path='',
         template_folder="../templates",
         static_folder="../static",
     )
