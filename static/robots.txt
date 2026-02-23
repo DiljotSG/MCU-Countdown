@@ -7,7 +7,8 @@ Allow: /$
 Allow: /star-wars$
 Allow: /dc$
 Allow: /batman$
-Allow /diljots-list
+Allow /spider-verse$
+Allow /diljots-list$
 Allow: /api$
 Allow: /assets/
 

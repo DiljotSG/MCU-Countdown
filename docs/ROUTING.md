@@ -9,6 +9,7 @@ Clean, memorable URLs for popular lists:
 | `/star-wars` | Star Wars | 8563040 |
 | `/dc` | DC Universe | 8563041 |
 | `/batman` | Matt Reeves' Batman Universe | 8563043 |
+| `/spider-verse` | Spider-Verse | 8635684 |
 | `/diljots-list` | Movies that I'm excited for - Diljot | 8630149 |
 
 ## Custom Lists via Query Parameter
