@@ -7,6 +7,7 @@ TMDB_STAR_WARS_LIST = 8563040
 TMDB_DC_LIST = 8563041
 TMDB_BATMAN_LIST = 8563043
 TMDB_DILJOTS_LIST = 8630149
+TMDB_SPIDER_VERSE_LIST = 8635684
 
 TMDB_DEFAULT_LIST = TMDB_MCU_LIST
 
@@ -30,5 +31,9 @@ NAMED_LISTS = {
     "diljots-list": {
         "list_id": TMDB_DILJOTS_LIST,
         "name": "Movies that I'm excited for - Diljot",
+    },
+    "spider-verse": {
+        "list_id": TMDB_SPIDER_VERSE_LIST,
+        "name": "Spider-Verse",
     }
 }
