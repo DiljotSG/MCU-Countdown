@@ -1,0 +1,33 @@
+name: Dependabot auto-merge
+
+# Turns on auto-merge for Dependabot patch/minor PRs (pip + GitHub Actions). GitHub merges once the
+# required "build" check passes. Major bumps and Docker base-image bumps stay open for review.
+#
+# Uses AUTOMERGE_TOKEN (a Dependabot secret) instead of GITHUB_TOKEN: merges made with GITHUB_TOKEN
+# don't trigger other workflows, so release.yml would never build the new image.
+
+on: pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  automerge:
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dependabot metadata
+        id: meta
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Enable auto-merge
+        if: >-
+          steps.meta.outputs.update-type != 'version-update:semver-major' &&
+          steps.meta.outputs.package-ecosystem != 'docker'
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.AUTOMERGE_TOKEN }}

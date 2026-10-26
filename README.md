@@ -101,6 +101,17 @@ curl "https://www.whenisthenextmcufilm.com/api?date=2025-01-01&list_id=YOUR_LIST
 }
 ```
 
+## Dependency updates and releases
+
+- Dependabot opens grouped PRs weekly: Python runtime deps, dev tools, GitHub Actions, and the Docker base image.
+- Patch and minor updates for pip and GitHub Actions **auto-merge** once the `build` check passes
+  ([dependabot-automerge.yml](.github/workflows/dependabot-automerge.yml)). Major and Docker base-image updates wait for review.
+- Every push to `main` runs tests, tags a release, and publishes `diljotsg301/mcu-countdown:<tag>` and `:latest`
+  ([release.yml](.github/workflows/release.yml)).
+- Setup this needs: repo **Settings → General → Allow auto-merge**; a branch rule on `main` requiring the
+  `build` check; and a fine-grained PAT (this repo only, Contents + Pull requests: read/write) saved as the
+  **Dependabot** secret `AUTOMERGE_TOKEN`.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to open a PR with your changes!

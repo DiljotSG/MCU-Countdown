@@ -1,11 +1,27 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
-
+# Weekly dependency updates, grouped so there's at most one PR per group per week.
+# Patch/minor updates (pip, GitHub Actions) auto-merge once tests pass: see workflows/dependabot-automerge.yml.
 version: 2
 updates:
-  - package-ecosystem: "pip" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      dev-tools:
+        patterns: ["black", "flake8", "isort"]
+      runtime:
+        patterns: ["*"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      actions:
+        patterns: ["*"]
+
+  # Python base image: PRs are opened but NOT auto-merged (review Python version bumps by hand).
+  - package-ecosystem: "docker"
+    directory: "/"
     schedule:
       interval: "weekly"
